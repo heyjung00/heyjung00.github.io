@@ -73,6 +73,15 @@
     }
 
     .card p:not(.category) { color: var(--muted); }
+    .game-thumb {
+      display: block;
+      flex: none;
+      width: calc(100% + 48px);
+      max-width: none;
+      height: auto;
+      margin: -24px -24px 4px;
+      border-bottom: 2px solid var(--line);
+    }
     .tracks {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(min(100%, 270px), 1fr));
@@ -125,6 +134,24 @@
         <!-- 새 작품을 공개할 때 li를 복사해 분류, 제목, 설명, 링크를 바꿉니다. -->
         <li>
           <article class="card">
+            <svg class="game-thumb" viewBox="0 0 480 270" aria-hidden="true" focusable="false">
+              <rect width="480" height="270" fill="#211c3b"/>
+              <path d="M0 54h480M0 108h480M0 162h480M0 216h480M48 0v270M96 0v270M144 0v270M192 0v270M240 0v270M288 0v270M336 0v270M384 0v270M432 0v270" stroke="#3c3459" stroke-width="1"/>
+              <path d="M70 76h12v-12h8v12h12v8H90v12h-8V84H70zm302 94h12v-12h8v12h12v8h-12v12h-8v-12h-12z" fill="#82edc7"/>
+              <path d="M114 188h12v12h-12zm243-118h12v12h-12z" fill="#ff9a83"/>
+              <rect x="147" y="47" width="204" height="204" fill="#100f22"/>
+              <rect x="138" y="34" width="204" height="204" fill="#f08c75"/>
+              <rect x="143" y="39" width="194" height="194" fill="#19253a"/>
+              <rect x="150" y="46" width="180" height="180" fill="#fff0bd"/>
+              <path d="M210 46h60v60h-60zm-60 60h60v60h-60zm120 0h60v60h-60zm-60 60h60v60h-60z" fill="#d9eed1"/>
+              <path d="M230 126h20v20h-20z" fill="#ffb672"/>
+              <path d="M170 46v180m20-180v180m40-180v180m20-180v180m40-180v180m20-180v180M150 66h180m-180 20h180m-180 40h180m-180 20h180m-180 40h180m-180 20h180" fill="none" stroke="#a49780"/>
+              <path d="M210 46v180m60-180v180M150 106h180m-180 60h180" fill="none" stroke="#263751" stroke-width="3"/>
+              <g fill="#263751" font-family="monospace" font-size="15" font-weight="bold" text-anchor="middle">
+                <text x="160" y="62">5</text><text x="220" y="82">8</text><text x="300" y="62">3</text><text x="180" y="122">6</text>
+                <text x="240" y="142">9</text><text x="320" y="122">2</text><text x="260" y="182">1</text><text x="160" y="202">4</text><text x="280" y="222">7</text>
+              </g>
+            </svg>
             <p class="category">GAME / PUZZLE</p>
             <h3>PIXEL SUDOKU</h3>
             <p>8비트 아케이드 스타일의 스도쿠입니다. 세 가지 난이도에서 힌트와 효과음을 곁들여 퍼즐을 풀어 보세요.</p>
@@ -133,6 +160,33 @@
         </li>
         <li>
           <article class="card">
+            <svg class="game-thumb" viewBox="0 0 480 270" aria-hidden="true" focusable="false">
+              <rect width="480" height="270" fill="#acdff7"/>
+              <circle cx="372" cy="59" r="31" fill="#fff5ce"/>
+              <path d="M0 157L78 76l58 64 52-34 62 60 60-78 70 66 49-44 51 44v116H0z" fill="#80b5df"/>
+              <path d="M0 158l78-82 35 39-29-9-12 11-11-7zm310-70 48 45-32-11-12 13-13-10-27 11z" fill="#e6f7ff"/>
+              <path d="M0 180q80-31 178 4t302-12v98H0z" fill="#edfaff"/>
+              <path d="M0 224q117-28 233 2t247-4v48H0z" fill="#d2eafb"/>
+              <g fill="#fff">
+                <circle cx="42" cy="44" r="4"/><circle cx="122" cy="28" r="3"/><circle cx="155" cy="93" r="5"/>
+                <circle cx="276" cy="43" r="4"/><circle cx="430" cy="92" r="5"/><circle cx="447" cy="32" r="3"/>
+              </g>
+              <ellipse cx="130" cy="229" rx="57" ry="12" fill="#a6cce9"/>
+              <ellipse cx="351" cy="229" rx="57" ry="12" fill="#a6cce9"/>
+              <g stroke="#385475" stroke-width="4" stroke-linejoin="round">
+                <path d="M89 224q-8-24 8-46 12-19 34-19t37 19q13 22 3 46z" fill="#f38b94"/>
+                <path d="M97 172v-17a34 34 0 0 1 68 0v17z" fill="#f9bc70"/>
+                <circle cx="131" cy="168" r="30" fill="#fff8ed"/>
+                <path d="M100 157q1-29 31-29t32 29z" fill="#f9bc70"/>
+                <path d="M320 224q-9-25 5-45 11-19 27-19 24 0 37 20 13 22 3 44z" fill="#8c91e3"/>
+                <path d="M321 166v-14a32 32 0 0 1 64 0v14z" fill="#b9a3f5"/>
+                <circle cx="353" cy="168" r="30" fill="#fff8ed"/>
+                <path d="M322 156q1-28 31-28t31 28z" fill="#b9a3f5"/>
+              </g>
+              <path d="M122 166v4m17-4v4m205-4v4m17-4v4" stroke="#385475" stroke-width="4" stroke-linecap="round"/>
+              <path d="M179 170q32-53 84-52" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-dasharray="2 11"/>
+              <circle cx="270" cy="118" r="13" fill="#fff" stroke="#8fc7e6" stroke-width="3"/>
+            </svg>
             <p class="category">GAME / ACTION</p>
             <h3>꼬마 눈싸움</h3>
             <p>좋아하는 캐릭터를 골라 눈덩이를 던지고, 상대의 공격을 피해 최고 점수에 도전하는 겨울 액션 게임입니다.</p>
@@ -141,6 +195,36 @@
         </li>
         <li>
           <article class="card">
+            <svg class="game-thumb" viewBox="0 0 480 270" aria-hidden="true" focusable="false">
+              <rect width="480" height="270" fill="#32234f"/>
+              <circle cx="240" cy="135" r="113" fill="#4c356c"/>
+              <circle cx="240" cy="135" r="101" fill="none" stroke="#76558f" stroke-width="2" stroke-dasharray="3 8"/>
+              <path d="M77 63h11V52h5v11h11v5H93v11h-5V68H77zm291 120h11v-11h5v11h11v5h-11v11h-5v-11h-11z" fill="#ffc0db"/>
+              <circle cx="81" cy="180" r="4" fill="#d2b7ff"/>
+              <circle cx="389" cy="78" r="5" fill="#d2b7ff"/>
+              <g transform="rotate(-17 174 143)">
+                <rect x="121" y="66" width="113" height="166" rx="12" fill="#241732"/>
+                <rect x="116" y="59" width="113" height="166" rx="12" fill="#d4bdff" stroke="#23172e" stroke-width="5"/>
+                <rect x="126" y="69" width="93" height="146" rx="6" fill="none" stroke="#74549e" stroke-width="2"/>
+                <text x="137" y="100" fill="#553576" font-family="monospace" font-weight="bold" font-size="22">Q</text>
+                <path d="M171 161c-12-10-24-18-24-30a13 13 0 0 1 24-6 13 13 0 0 1 24 6c0 12-12 20-24 30z" fill="#a278d8"/>
+              </g>
+              <g transform="rotate(14 302 140)">
+                <rect x="252" y="62" width="111" height="165" rx="12" fill="#241732"/>
+                <rect x="247" y="55" width="111" height="165" rx="12" fill="#ffcae2" stroke="#23172e" stroke-width="5"/>
+                <rect x="257" y="65" width="91" height="145" rx="6" fill="none" stroke="#b66a9d" stroke-width="2"/>
+                <text x="268" y="96" fill="#633c73" font-family="monospace" font-weight="bold" font-size="22">K</text>
+                <path d="M304 159c-12-10-24-18-24-30a13 13 0 0 1 24-6 13 13 0 0 1 24 6c0 12-12 20-24 30z" fill="#e685b2"/>
+              </g>
+              <rect x="190" y="46" width="111" height="182" rx="12" fill="#241732"/>
+              <rect x="184" y="39" width="111" height="182" rx="12" fill="#fff2fa" stroke="#23172e" stroke-width="5"/>
+              <rect x="194" y="49" width="91" height="162" rx="6" fill="none" stroke="#b66a9d" stroke-width="2"/>
+              <text x="205" y="80" fill="#633c73" font-family="monospace" font-weight="bold" font-size="22">A</text>
+              <path d="M239 117l-29-20 5 30c-9 17 1 38 24 38s33-21 24-38l5-30z" fill="#312139"/>
+              <ellipse cx="239" cy="143" rx="19" ry="14" fill="#fff5f9"/>
+              <circle cx="232" cy="143" r="2.5" fill="#312139"/><circle cx="246" cy="143" r="2.5" fill="#312139"/>
+              <circle cx="239" cy="122" r="4" fill="#ff9dc8"/>
+            </svg>
             <p class="category">GAME / CARD</p>
             <h3>쿠로미 스파이더</h3>
             <p>쿠로미 그림 카드로 즐기는 스파이더 솔리테어입니다. 같은 무늬의 카드를 순서대로 모아 세트를 완성해 보세요.</p>
