@@ -7,14 +7,12 @@
   <title>heyjung00 | 작품 모음</title>
   <style>
     :root {
-      color-scheme: dark;
-      --background: #12162c;
-      --panel: #202941;
-      --line: #526182;
-      --text: #fff2c4;
-      --muted: #c5cce3;
-      --mint: #82edc7;
-      --peach: #ff9a83;
+      color-scheme: light;
+      --background: #fafafa;
+      --panel: #fff;
+      --line: #ddd;
+      --text: #171717;
+      --muted: #525252;
       font-family: system-ui, sans-serif;
     }
 
@@ -24,10 +22,6 @@
       min-height: 100vh;
       color: var(--text);
       background-color: var(--background);
-      background-image:
-        linear-gradient(#ffffff08 1px, transparent 1px),
-        linear-gradient(90deg, #ffffff08 1px, transparent 1px);
-      background-size: 24px 24px;
       line-height: 1.65;
     }
 
@@ -45,7 +39,7 @@
     section + section { margin-top: 40px; }
 
     .eyebrow, .category {
-      color: var(--mint);
+      color: var(--muted);
       font: 700 .8rem/1.4 ui-monospace, monospace;
       letter-spacing: .1em;
     }
@@ -68,8 +62,10 @@
       height: 100%;
       padding: 24px;
       background: var(--panel);
-      border: 2px solid var(--line);
-      box-shadow: 5px 5px 0 #080b1a;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      box-shadow: 0 4px 16px #00000008;
+      overflow: hidden;
     }
 
     .card p:not(.category) { color: var(--muted); }
@@ -80,7 +76,7 @@
       max-width: none;
       height: auto;
       margin: -24px -24px 4px;
-      border-bottom: 2px solid var(--line);
+      border-bottom: 1px solid var(--line);
     }
     .tracks {
       display: grid;
@@ -100,24 +96,25 @@
       margin-block: 8px;
       border: 0;
       border-radius: 12px;
-      background: #171b30;
+      background: #f2f2f2;
     }
-    .tracks a { color: var(--mint); font-size: .85rem; text-underline-offset: 4px; }
+    .tracks a { color: var(--text); font-size: .85rem; text-underline-offset: 4px; }
 
     .project-link {
       display: inline-block;
       margin-top: auto;
       padding: 8px 14px;
-      color: #171b30;
-      background: var(--mint);
+      color: #fff;
+      background: var(--text);
+      border-radius: 6px;
       font-weight: 800;
       text-decoration: none;
     }
 
-    .project-link:hover { background: var(--peach); }
-    a:focus-visible { outline: 3px solid var(--peach); outline-offset: 4px; }
+    .project-link:hover { background: #383838; }
+    a:focus-visible { outline: 2px solid var(--text); outline-offset: 4px; }
     footer { padding-block: 42px 28px; }
-    footer a { color: var(--mint); text-underline-offset: 4px; }
+    footer a { color: var(--text); text-underline-offset: 4px; }
   </style>
 </head>
 <body>
