@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>게시판 | heyjung00</title>
+<style>
+* { box-sizing: border-box; }
+body { margin: 0; padding: 24px 16px; background: #fafafa; color: #171717; font: 1rem/1.6 system-ui, sans-serif; }
+main { max-width: 680px; margin: auto; }
+a { color: inherit; text-underline-offset: 4px; }
+h1 { margin: 16px 0; }
+h2 { margin-top: 0; font-size: 1.2rem; }
+ul { list-style: none; padding: 0; }
+li, article { background: white; border: 1px solid #ddd; border-radius: 16px; padding: 16px; }
+article { margin-top: 24px; }
+article:target { border-color: #171717; }
+article p:last-child { margin-bottom: 0; }
+form { display: grid; gap: 8px; }
+input, textarea, button { font: inherit; border: 1px solid #777; border-radius: 8px; padding: 8px 12px; }
+textarea { resize: vertical; }
+button { justify-self: start; background: #171717; color: white; cursor: pointer; }
+#status { margin: 0; }
+#post-list { display: grid; gap: 8px; }
+article p { white-space: pre-wrap; overflow-wrap: anywhere; }
+</style>
+</head>
+<body>
+<main>
+  <a href="./index.html">← 홈으로</a>
+  <h1>게시판</h1>
+  <section aria-labelledby="write-title">
+    <h2 id="write-title">글쓰기</h2>
+    <form id="post-form">
+      <label for="post-title">제목</label>
+      <input id="post-title" maxlength="120" required aria-describedby="post-help">
+      <label for="post-body">본문</label>
+      <textarea id="post-body" rows="5" maxlength="5000" required></textarea>
+      <p id="post-help">작성한 글은 이 브라우저에만 저장됩니다.</p>
+      <button type="submit">글 등록</button>
+      <p id="status" role="status"></p>
+    </form>
+  </section>
+  <section aria-labelledby="posts">
+    <h2 id="posts">글 목록</h2>
+    <ul id="post-list">
+      <li><a href="#welcome">게시판을 열었습니다</a></li>
+    </ul>
+  </section>
+  <div id="user-posts"></div>
+  <article id="welcome" aria-labelledby="welcome-title">
+    <h2 id="welcome-title">게시판을 열었습니다</h2>
+    <p>이곳에서 홈페이지와 게임, 음악에 관한 새 소식을 전합니다.</p>
+    <p>질문이나 제안은 <a href="./contact.html">문의 페이지</a>에 남겨 주세요.</p>
+  </article>
+</main>
+<script>
+const storageKey = "heyjung00.board.posts";
+const form = document.querySelector("#post-form");
+const titleInput = document.querySelector("#post-title");
+const bodyInput = document.querySelector("#post-body");
+const status = document.querySelector("#status");
+const list = document.querySelector("#post-list");
+const articles = document.querySelector("#user-posts");
+
+function readPosts() {
+  const posts = JSON.parse(localStorage.getItem(storageKey) ?? "[]");
+  if (!Array.isArray(posts)) throw new Error("Invalid posts");
+  return posts;
+}
+
+function renderPosts(posts) {
+  for (const item of list.querySelectorAll("[data-user-post]")) item.remove();
+  articles.replaceChildren();
+  for (const post of posts) {
+    const item = document.createElement("li");
+    item.dataset.userPost = "";
+    const link = document.createElement("a");
+    link.href = "#" + post.id;
+    link.textContent = post.title;
+    item.append(link);
+    list.insertBefore(item, list.lastElementChild);
+
+    const article = document.createElement("article");
+    article.id = post.id;
+    const heading = document.createElement("h2");
+    heading.textContent = post.title;
+    const body = document.createElement("p");
+    body.textContent = post.body;
+    article.append(heading, body);
+    articles.append(article);
+  }
+}
+
+try {
+  renderPosts(readPosts());
+} catch {
+  status.textContent = "저장된 글을 불러올 수 없습니다.";
+}
+
+form.addEventListener("submit", event => {
+  event.preventDefault();
+  const title = titleInput.value.trim();
+  const body = bodyInput.value.trim();
+  if (!title || !body) {
+    status.textContent = "제목과 본문을 모두 입력해 주세요.";
+    (title ? bodyInput : titleInput).focus();
+    return;
+  }
+  const post = { id: "post-" + crypto.randomUUID(), title, body };
+  try {
+    const posts = [post, ...readPosts()];
+    localStorage.setItem(storageKey, JSON.stringify(posts));
+    renderPosts(posts);
+  } catch {
+    status.textContent = "글을 저장할 수 없습니다.";
+    return;
+  }
+  form.reset();
+  status.textContent = "글을 등록했습니다.";
+});
+</script>
+</body>
+</html>
