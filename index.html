@@ -190,6 +190,16 @@
     .home-intro { padding-top: clamp(24px, 4vw, 48px); }
     .home-intro h1 { font-size: clamp(1.8rem, 4vw, 2.75rem); }
     .home-intro p { margin-top: 8px; color: var(--muted); }
+    .short-video iframe {
+      display: block;
+      width: min(100%, 360px);
+      aspect-ratio: 9 / 16;
+      border: 0;
+      border-radius: 12px;
+      background: #171717;
+    }
+    .short-video p { margin-top: 8px; }
+    .short-video a { color: var(--text); text-underline-offset: 4px; }
   </style>
 </head>
 <body id="top">
@@ -329,7 +339,12 @@
       <p class="favorites-status" role="status"></p>
     </section>
 
-</main>
+    <section class="short-video" aria-labelledby="short-title">
+      <h2 id="short-title">YouTube Shorts</h2>
+      <iframe src="https://www.youtube-nocookie.com/embed/yX9dZWeF5O8" title="YouTube Shorts 영상" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" allow="encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>
+      <p><a href="https://youtube.com/shorts/yX9dZWeF5O8?feature=share">YouTube에서 보기</a></p>
+    </section>
+  </main>
   <footer>
     <a href="https://github.com/heyjung00/heyjung00.github.io">GitHub에서 소스 보기</a>
   </footer>
