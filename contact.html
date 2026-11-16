@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>문의 채팅 | heyjung00</title>
+<style>
+* { box-sizing: border-box; }
+body { margin: 0; padding: 24px 16px; background: #fafafa; color: #171717; font: 1rem/1.6 system-ui, sans-serif; }
+main { max-width: 680px; margin: auto; }
+a { color: inherit; }
+h1 { margin: 16px 0; }
+.chat { background: white; border: 1px solid #ddd; border-radius: 16px; padding: 16px; }
+#messages { display: flex; flex-direction: column; gap: 12px; height: clamp(220px, 50vh, 480px); overflow: auto; padding: 4px; }
+.message { max-width: 90%; border-radius: 12px; padding: 8px 12px; background: #eee; align-self: flex-start; overflow-wrap: anywhere; }
+.visitor { align-self: flex-end; background: #171717; color: white; }
+form { display: flex; gap: 8px; margin-top: 16px; }
+input, button { font: inherit; padding: 8px 12px; border-radius: 8px; border: 1px solid #777; }
+input { flex: 1; min-width: 0; }
+button { background: #171717; color: white; cursor: pointer; white-space: nowrap; }
+</style>
+</head>
+<body>
+<main>
+  <a href="./index.html">← 홈으로</a>
+  <h1>문의 채팅</h1>
+  <div class="chat">
+    <div id="messages" role="log" aria-label="봇과의 대화">
+      <div class="message"><strong>문의 봇</strong><br>안녕하세요! 게임 실행, 즐겨찾기, 음악 재생에 대해 물어보세요.</div>
+    </div>
+    <form>
+      <input aria-label="문의 메시지" placeholder="메시지를 입력하세요" maxlength="500" required>
+      <button type="submit">보내기</button>
+    </form>
+  </div>
+</main>
+<script>
+const messages = document.querySelector("#messages");
+const form = document.querySelector("form");
+const input = form.querySelector("input");
+const answers = [
+  [/즐겨|저장|별|북마크/, "게임 카드의 별 버튼을 누르면 같은 브라우저에 저장돼요. 상단의 즐겨찾기 메뉴에서 목록을 볼 수 있어요."],
+  [/음악|노래|suno|재즈|일본어/i, "홈페이지 음악 섹션에서 재생 버튼을 눌러보세요. 재생이 안 되면 곡 아래의 ‘Suno에서 열기’를 이용해 보세요."],
+  [/랜덤|무작위/, "상단의 랜덤 플레이 버튼을 누르면 미니게임 세 편 중 하나가 열려요."],
+  [/게임|오류|버그|실행|스도쿠|눈싸움|쿠로미/, "게임이 열리지 않으면 공개 홈페이지에서 다시 시도해 보세요. 오류가 계속되면 게임 이름과 오류가 발생한 상황을 GitHub에 남길 수 있어요.", true],
+  [/문의|제안|건의|연락|기타/, "추가 문의나 개선 아이디어는 GitHub에 남길 수 있어요.", true],
+];
+function appendMessage(sender, text, visitor, showLink) {
+  const bubble = document.createElement("div");
+  bubble.className = visitor ? "message visitor" : "message";
+  const label = document.createElement("strong");
+  label.textContent = sender;
+  bubble.append(label, document.createElement("br"), text);
+  if (showLink) {
+    const link = document.createElement("a");
+    link.href = "https://github.com/heyjung00/heyjung00.github.io/issues";
+    link.textContent = "GitHub 문의";
+    bubble.append(document.createElement("br"), link);
+  }
+  messages.append(bubble);
+  messages.scrollTop = messages.scrollHeight;
+}
+form.addEventListener("submit", event => {
+  event.preventDefault();
+  const question = input.value.trim();
+  if (!question) return;
+  appendMessage("나", question, true, false);
+  const answer = answers.find(([pattern]) => pattern.test(question));
+  appendMessage("문의 봇", answer?.[1] ?? "이 질문에 대한 답변이 준비되어 있지 않아요. 게임 실행, 즐겨찾기, 음악 재생 중 하나를 물어보거나 GitHub에 문의를 남겨주세요.", false, answer ? answer[2] : true);
+  input.value = "";
+  input.focus();
+});
+</script>
+</body>
+</html>

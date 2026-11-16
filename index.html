@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="heyjung00의 미니게임 세 편과 음악 컬렉션을 소개합니다.">
   <title>heyjung00 | 작품 모음</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@700&amp;family=Noto+Sans+KR:wght@400..800&amp;display=swap">
   <style>
     :root {
       color-scheme: light;
@@ -13,9 +14,10 @@
       --line: #ddd;
       --text: #171717;
       --muted: #525252;
-      font-family: system-ui, sans-serif;
+      font-family: "Noto Sans KR", sans-serif;
     }
 
+    :lang(ja) { font-family: "Noto Sans JP", "Noto Sans KR", sans-serif; }
     * { box-sizing: border-box; }
     body {
       margin: 0;
@@ -25,12 +27,23 @@
       line-height: 1.65;
     }
 
-    main, footer {
-      width: min(100% - 36px, 880px);
-      margin-inline: auto;
+    main, footer, .site-nav {
+      margin-inline: clamp(16px, 3vw, 48px);
     }
 
     header { padding-block: clamp(46px, 10vw, 96px) 34px; }
+    .site-nav {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 6px 24px;
+      padding-block: 10px;
+      border-bottom: 1px solid var(--line);
+    }
+    .site-nav a { color: var(--text); font-weight: 700; text-decoration: none; }
+    .site-nav a:hover { text-decoration: underline; text-underline-offset: 4px; }
+    .site-brand { margin-right: auto; }
+    .site-logo { display: block; width: 80px; height: auto; filter: grayscale(1); }
     h1, h2, h3, p { margin: 0; }
     h1 { font-size: clamp(2.4rem, 7vw, 4.5rem); line-height: 1.15; }
     h2 { font-size: 1.35rem; margin-bottom: 16px; }
@@ -40,8 +53,10 @@
 
     .eyebrow, .category {
       color: var(--muted);
-      font: 700 .8rem/1.4 ui-monospace, monospace;
-      letter-spacing: .1em;
+      font-size: .8rem;
+      font-weight: 700;
+      line-height: 1.4;
+      letter-spacing: normal;
     }
 
     .eyebrow { margin-bottom: 12px; }
@@ -78,6 +93,7 @@
       margin: -24px -24px 4px;
       border-bottom: 1px solid var(--line);
     }
+    .snowball-thumb { aspect-ratio: 16 / 9; object-fit: cover; object-position: center 72%; }
     .tracks {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(min(100%, 270px), 1fr));
@@ -89,6 +105,14 @@
       color: var(--muted);
     }
     .tracks h4 { margin: 0 0 4px; color: var(--text); }
+    .kuromi-thumb {
+      aspect-ratio: 16 / 9;
+      object-fit: contain;
+      background:
+        linear-gradient(90deg, transparent, #fff 37%, #fff 63%, transparent),
+        radial-gradient(circle, #a384cb 1.2px, transparent 1.5px) 0 0 / 15px 15px,
+        linear-gradient(135deg, #ddcbf2, #f5eafa 50%, #d9c6ee);
+    }
     .tracks iframe {
       display: block;
       width: 100%;
@@ -115,14 +139,107 @@
     a:focus-visible { outline: 2px solid var(--text); outline-offset: 4px; }
     footer { padding-block: 42px 28px; }
     footer a { color: var(--text); text-underline-offset: 4px; }
+    .featured {
+      display: grid;
+      grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+      align-items: center;
+      gap: clamp(20px, 4vw, 64px);
+      margin-block: 24px 40px;
+      padding: clamp(22px, 4vw, 64px);
+      background: #fff; border: 1px solid var(--line);
+      border-radius: 20px;
+    }
+    .featured h2 { line-height: 1.15; font-size: clamp(2rem, 5vw, 3.5rem); margin-block: 8px 12px; }
+    .featured .project-link { margin-top: 20px; background: #171717; }
+    .featured .project-link:hover { background: #383838; }
+    .featured-art { display: block; width: 100%; height: auto; border-radius: 12px; }
+    .featured { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); padding: clamp(20px, 3vw, 40px); }
+    .featured-art { max-width: 560px; aspect-ratio: 16 / 9; justify-self: end; }
+    .slide-controls { display: flex; align-items: center; gap: 12px; margin-top: 16px; }
+    .slide-controls[hidden] { display: none; }
+    .slide-controls button {
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      background: var(--panel);
+      color: var(--text);
+      width: 36px;
+      height: 36px;
+      cursor: pointer;
+      font: inherit;
+    }
+    .slide-controls .slide-toggle { width: auto; padding-inline: 10px; }
+    .slide-controls button:hover { background: #eee; }
+    @media (max-width: 700px) {
+      .featured { grid-template-columns: 1fr; }
+    }
+    .random-play, .favorite-toggle {
+      font: inherit;
+      font-weight: 700;
+      padding: 6px 12px;
+      border: 1px solid var(--text);
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .random-play { background: var(--text); color: white; }
+    .favorite-toggle { background: var(--panel); color: var(--text); }
+    .favorite-toggle[aria-pressed="true"] { background: var(--text); color: white; }
+    .tracks .favorite-toggle { display: block; margin-top: 8px; }
+    .favorites-list { padding-inline-start: 24px; }
+    .favorites-list a { color: var(--text); }
+    .favorites-status:empty { display: none; }
+    .home-intro { padding-top: clamp(24px, 4vw, 48px); }
+    .home-intro h1 { font-size: clamp(1.8rem, 4vw, 2.75rem); }
+    .home-intro p { margin-top: 8px; color: var(--muted); }
   </style>
 </head>
-<body>
+<body id="top">
+  <nav class="site-nav" aria-label="상단 메뉴">
+    <a class="site-brand" href="#top" aria-label="heyjung00 홈">
+      <img class="site-logo" src="./heyjung00-logo-white-wave.png" width="1536" height="1024" alt="">
+    </a>
+    <a href="#projects-title">미니게임</a>
+    <a href="#music-title">음악</a>
+    <a href="https://heyjung00.github.io/music/index_html.html">음악 컬렉션 열기</a>
+    <a href="#favorites-title" data-favorites-control hidden>즐겨찾기</a>
+    <a href="./contact.html">문의</a>
+    <button class="random-play" type="button" hidden>랜덤 플레이</button>
+  </nav>
   <main>
-    <header>
-      <p class="eyebrow">HEYJUNG00 / PROJECTS</p>
-      <h1>작품 모음</h1>
-      <p>제가 만든 미니게임과 음악을 한곳에 모았습니다.</p>
+    <section class="home-intro" aria-labelledby="home-title">
+      <h1 id="home-title">미니게임&amp;음악</h1>
+      <p>스도쿠, 눈싸움, 솔리테어를 한 판씩 즐기고 재즈와 일본어 팝, 게임 사운드트랙을 들어보세요.</p>
+    </section>
+    <header class="featured" aria-label="미니게임 슬라이드">
+      <div class="featured-copy">
+        <p class="category">대표 미니게임</p>
+        <h2 lang="en">PIXEL SUDOKU</h2>
+        <p>8비트 아케이드 스타일의 스도쿠. 세 가지 난이도에서 퍼즐을 풀어 보세요.</p>
+        <a class="project-link" href="./game/01.html">플레이하기 <span aria-hidden="true">↗</span></a>
+        <div class="slide-controls" hidden>
+          <button type="button" data-slide="-1" aria-label="이전 게임">←</button>
+          <span class="slide-position" aria-live="polite">1 / 3</span>
+          <button type="button" data-slide="1" aria-label="다음 게임">→</button>
+          <button class="slide-toggle" type="button">일시정지</button>
+        </div>
+      </div>
+      <svg class="featured-art" viewBox="0 0 480 270" aria-hidden="true" focusable="false">
+              <rect width="480" height="270" fill="#211c3b"/>
+              <path d="M0 54h480M0 108h480M0 162h480M0 216h480M48 0v270M96 0v270M144 0v270M192 0v270M240 0v270M288 0v270M336 0v270M384 0v270M432 0v270" stroke="#3c3459" stroke-width="1"/>
+              <path d="M70 76h12v-12h8v12h12v8H90v12h-8V84H70zm302 94h12v-12h8v12h12v8h-12v12h-8v-12h-12z" fill="#82edc7"/>
+              <path d="M114 188h12v12h-12zm243-118h12v12h-12z" fill="#ff9a83"/>
+              <rect x="147" y="47" width="204" height="204" fill="#100f22"/>
+              <rect x="138" y="34" width="204" height="204" fill="#f08c75"/>
+              <rect x="143" y="39" width="194" height="194" fill="#19253a"/>
+              <rect x="150" y="46" width="180" height="180" fill="#fff0bd"/>
+              <path d="M210 46h60v60h-60zm-60 60h60v60h-60zm120 0h60v60h-60zm-60 60h60v60h-60z" fill="#d9eed1"/>
+              <path d="M230 126h20v20h-20z" fill="#ffb672"/>
+              <path d="M170 46v180m20-180v180m40-180v180m20-180v180m40-180v180m20-180v180M150 66h180m-180 20h180m-180 40h180m-180 20h180m-180 40h180m-180 20h180" fill="none" stroke="#a49780"/>
+              <path d="M210 46v180m60-180v180M150 106h180m-180 60h180" fill="none" stroke="#263751" stroke-width="3"/>
+              <g fill="#263751" font-size="15" font-weight="bold" text-anchor="middle">
+                <text x="160" y="62">5</text><text x="220" y="82">8</text><text x="300" y="62">3</text><text x="180" y="122">6</text>
+                <text x="240" y="142">9</text><text x="320" y="122">2</text><text x="260" y="182">1</text><text x="160" y="202">4</text><text x="280" y="222">7</text>
+              </g>
+            </svg>
     </header>
 
     <section aria-labelledby="projects-title">
@@ -144,7 +261,7 @@
               <path d="M230 126h20v20h-20z" fill="#ffb672"/>
               <path d="M170 46v180m20-180v180m40-180v180m20-180v180m40-180v180m20-180v180M150 66h180m-180 20h180m-180 40h180m-180 20h180m-180 40h180m-180 20h180" fill="none" stroke="#a49780"/>
               <path d="M210 46v180m60-180v180M150 106h180m-180 60h180" fill="none" stroke="#263751" stroke-width="3"/>
-              <g fill="#263751" font-family="monospace" font-size="15" font-weight="bold" text-anchor="middle">
+              <g fill="#263751" font-size="15" font-weight="bold" text-anchor="middle">
                 <text x="160" y="62">5</text><text x="220" y="82">8</text><text x="300" y="62">3</text><text x="180" y="122">6</text>
                 <text x="240" y="142">9</text><text x="320" y="122">2</text><text x="260" y="182">1</text><text x="160" y="202">4</text><text x="280" y="222">7</text>
               </g>
@@ -157,34 +274,7 @@
         </li>
         <li>
           <article class="card">
-            <svg class="game-thumb" viewBox="0 0 480 270" aria-hidden="true" focusable="false">
-              <rect width="480" height="270" fill="#acdff7"/>
-              <circle cx="372" cy="59" r="31" fill="#fff5ce"/>
-              <path d="M0 157L78 76l58 64 52-34 62 60 60-78 70 66 49-44 51 44v116H0z" fill="#80b5df"/>
-              <path d="M0 158l78-82 35 39-29-9-12 11-11-7zm310-70 48 45-32-11-12 13-13-10-27 11z" fill="#e6f7ff"/>
-              <path d="M0 180q80-31 178 4t302-12v98H0z" fill="#edfaff"/>
-              <path d="M0 224q117-28 233 2t247-4v48H0z" fill="#d2eafb"/>
-              <g fill="#fff">
-                <circle cx="42" cy="44" r="4"/><circle cx="122" cy="28" r="3"/><circle cx="155" cy="93" r="5"/>
-                <circle cx="276" cy="43" r="4"/><circle cx="430" cy="92" r="5"/><circle cx="447" cy="32" r="3"/>
-              </g>
-              <ellipse cx="240" cy="232" rx="87" ry="13" fill="#a6cce9"/>
-              <path d="M210 157l-50-22-18-23m18 23-25-4m138 28 49-32 13-26m-13 26 24-9" fill="none" stroke="#705344" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
-              <g fill="#fff" stroke="#96bfdc" stroke-width="3">
-                <circle cx="240" cy="188" r="47"/>
-                <circle cx="240" cy="141" r="36"/>
-                <circle cx="240" cy="89" r="33"/>
-              </g>
-              <g fill="#385475">
-                <circle cx="229" cy="83" r="3.5"/>
-                <circle cx="250" cy="83" r="3.5"/>
-                <circle cx="240" cy="137" r="3.5"/>
-                <circle cx="240" cy="153" r="3.5"/>
-                <circle cx="240" cy="185" r="3.5"/>
-              </g>
-              <path d="M238 89l24 7-24 4z" fill="#ef9556"/>
-              <path d="M229 103q11 12 22 0" fill="none" stroke="#385475" stroke-width="2.5" stroke-linecap="round"/>
-            </svg>
+            <img class="game-thumb snowball-thumb" src="./snowball-original.png" width="852" height="1846" alt="눈 내리는 마을에서 눈싸움을 하는 동물 친구들" loading="lazy">
             <p class="category">GAME / ACTION</p>
             <h3>꼬마 눈싸움</h3>
             <p>좋아하는 캐릭터를 골라 눈덩이를 던지고, 상대의 공격을 피해 최고 점수에 도전하는 겨울 액션 게임입니다.</p>
@@ -193,36 +283,7 @@
         </li>
         <li>
           <article class="card">
-            <svg class="game-thumb" viewBox="0 0 480 270" aria-hidden="true" focusable="false">
-              <rect width="480" height="270" fill="#32234f"/>
-              <circle cx="240" cy="135" r="113" fill="#4c356c"/>
-              <circle cx="240" cy="135" r="101" fill="none" stroke="#76558f" stroke-width="2" stroke-dasharray="3 8"/>
-              <path d="M77 63h11V52h5v11h11v5H93v11h-5V68H77zm291 120h11v-11h5v11h11v5h-11v11h-5v-11h-11z" fill="#ffc0db"/>
-              <circle cx="81" cy="180" r="4" fill="#d2b7ff"/>
-              <circle cx="389" cy="78" r="5" fill="#d2b7ff"/>
-              <g transform="rotate(-17 174 143)">
-                <rect x="121" y="66" width="113" height="166" rx="12" fill="#241732"/>
-                <rect x="116" y="59" width="113" height="166" rx="12" fill="#d4bdff" stroke="#23172e" stroke-width="5"/>
-                <rect x="126" y="69" width="93" height="146" rx="6" fill="none" stroke="#74549e" stroke-width="2"/>
-                <text x="137" y="100" fill="#553576" font-family="monospace" font-weight="bold" font-size="22">Q</text>
-                <path d="M171 161c-12-10-24-18-24-30a13 13 0 0 1 24-6 13 13 0 0 1 24 6c0 12-12 20-24 30z" fill="#a278d8"/>
-              </g>
-              <g transform="rotate(14 302 140)">
-                <rect x="252" y="62" width="111" height="165" rx="12" fill="#241732"/>
-                <rect x="247" y="55" width="111" height="165" rx="12" fill="#ffcae2" stroke="#23172e" stroke-width="5"/>
-                <rect x="257" y="65" width="91" height="145" rx="6" fill="none" stroke="#b66a9d" stroke-width="2"/>
-                <text x="268" y="96" fill="#633c73" font-family="monospace" font-weight="bold" font-size="22">K</text>
-                <path d="M304 159c-12-10-24-18-24-30a13 13 0 0 1 24-6 13 13 0 0 1 24 6c0 12-12 20-24 30z" fill="#e685b2"/>
-              </g>
-              <rect x="190" y="46" width="111" height="182" rx="12" fill="#241732"/>
-              <rect x="184" y="39" width="111" height="182" rx="12" fill="#fff2fa" stroke="#23172e" stroke-width="5"/>
-              <rect x="194" y="49" width="91" height="162" rx="6" fill="none" stroke="#b66a9d" stroke-width="2"/>
-              <text x="205" y="80" fill="#633c73" font-family="monospace" font-weight="bold" font-size="22">A</text>
-              <path d="M239 117l-29-20 5 30c-9 17 1 38 24 38s33-21 24-38l5-30z" fill="#312139"/>
-              <ellipse cx="239" cy="143" rx="19" ry="14" fill="#fff5f9"/>
-              <circle cx="232" cy="143" r="2.5" fill="#312139"/><circle cx="246" cy="143" r="2.5" fill="#312139"/>
-              <circle cx="239" cy="122" r="4" fill="#ff9dc8"/>
-            </svg>
+            <img class="game-thumb kuromi-thumb" src="./kuromi-cards.png" width="340" height="340" alt="쿠로미 바이시클 플레잉 카드 상자" loading="lazy">
             <p class="category">GAME / CARD</p>
             <h3>쿠로미 스파이더</h3>
             <p>쿠로미 그림 카드로 즐기는 스파이더 솔리테어입니다. 같은 무늬의 카드를 순서대로 모아 세트를 완성해 보세요.</p>
@@ -240,30 +301,195 @@
         <p>겨울 재즈, 여름의 여운을 담은 일본어 팝, 경쾌한 게임 사운드트랙을 모은 컬렉션입니다.</p>
         <ol class="tracks" role="list" aria-label="Three Seasons 재생 목록">
           <li>
-            <h4 lang="en">Winter Jazz Trio</h4>
+            <h4 id="track-winter-jazz" lang="en">Winter Jazz Trio</h4>
             <p>재즈</p>
             <iframe src="https://suno.com/embed/cd30c05c-c21f-4f5e-b2c6-e62af1970109" title="Winter Jazz Trio 재생기" loading="lazy" allow="autoplay; encrypted-media"></iframe>
             <a href="https://suno.com/s/o5funcbyfmgt5mJ8" aria-label="Winter Jazz Trio Suno에서 열기">Suno에서 열기</a>
           </li>
           <li>
-            <h4 lang="ja">夏が終わる前に</h4>
+            <h4 id="track-before-summer-ends" lang="ja">夏が終わる前に</h4>
             <p>일본어 팝</p>
             <iframe src="https://suno.com/embed/9c98b91b-c68d-4f6b-a633-2c609c03e3a6" title="夏が終わる前に 재생기" loading="lazy" allow="autoplay; encrypted-media"></iframe>
             <a href="https://suno.com/s/vMBvqcngfLwQ1eZz" aria-label="夏が終わる前に Suno에서 열기">Suno에서 열기</a>
           </li>
           <li>
-            <h4 lang="en">Untitled</h4>
+            <h4 id="track-game-soundtrack" lang="ko">게임사운드</h4>
             <p>게임 사운드트랙</p>
-            <iframe src="https://suno.com/embed/e9797534-01dc-41b5-8123-4c58fd79c5b3" title="Untitled 재생기" loading="lazy" allow="autoplay; encrypted-media"></iframe>
-            <a href="https://suno.com/s/XKYwl0cyOC74RmEA" aria-label="Untitled Suno에서 열기">Suno에서 열기</a>
+            <iframe src="https://suno.com/embed/e9797534-01dc-41b5-8123-4c58fd79c5b3" title="게임사운드 재생기" loading="lazy" allow="autoplay; encrypted-media"></iframe>
+            <a href="https://suno.com/s/XKYwl0cyOC74RmEA" aria-label="게임사운드 Suno에서 열기">Suno에서 열기</a>
           </li>
         </ol>
-        <a class="project-link" href="./music/index_html.html">음악 컬렉션 열기 <span aria-hidden="true">↗</span></a>
+        <a class="project-link" href="https://heyjung00.github.io/music/index_html.html">음악 컬렉션 열기 <span aria-hidden="true">↗</span></a>
       </article>
     </section>
-  </main>
+    <section aria-labelledby="favorites-title" data-favorites-control hidden>
+      <h2 id="favorites-title">즐겨찾기</h2>
+      <p class="favorites-empty">게임이나 음악 옆의 별 버튼을 눌러 저장하세요.</p>
+      <ul class="favorites-list"></ul>
+      <p class="favorites-status" role="status"></p>
+    </section>
+
+</main>
   <footer>
     <a href="https://github.com/heyjung00/heyjung00.github.io">GitHub에서 소스 보기</a>
   </footer>
+  <script>
+    const games = [...document.querySelectorAll(".projects .card")];
+    const featured = document.querySelector(".featured");
+    const controls = featured.querySelector(".slide-controls");
+    const title = featured.querySelector("h2");
+    const description = featured.querySelector(".featured-copy p:not(.category)");
+    const play = featured.querySelector(".project-link");
+    const position = controls.querySelector(".slide-position");
+    let active = 0;
+
+    function showSlide(step) {
+      active = (active + step + games.length) % games.length;
+      const game = games[active];
+      const artwork = game.querySelector(".game-thumb").cloneNode(true);
+      artwork.classList.replace("game-thumb", "featured-art");
+      artwork.removeAttribute("loading");
+      featured.querySelector(".featured-art").replaceWith(artwork);
+      title.textContent = game.querySelector("h3").textContent;
+      title.lang = active === 0 ? "en" : "ko";
+      description.textContent = game.querySelector("p:not(.category)").textContent;
+      play.href = gameDestination(game.querySelector(".project-link"));
+      position.textContent = (active + 1) + " / " + games.length;
+      if (!matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        const copy = featured.querySelector(".featured-copy");
+        for (const element of [copy, artwork]) {
+          element.getAnimations().forEach(animation => animation.cancel());
+          element.animate(
+            [{ opacity: 0.35, transform: "translateX(" + (step * 12) + "px)" },
+             { opacity: 1, transform: "translateX(0)" }],
+            { duration: 420, easing: "ease-out" }
+          );
+        }
+      }
+    }
+
+    if (games.length > 1) {
+      controls.hidden = false;
+      position.textContent = "1 / " + games.length;
+
+      const toggle = controls.querySelector(".slide-toggle");
+      let timer;
+
+      function setPlaying(playing) {
+        clearInterval(timer);
+        timer = playing ? setInterval(() => {
+          if (!document.hidden && !featured.matches(":hover, :focus-within")) showSlide(1);
+        }, 3000) : undefined;
+        toggle.textContent = playing ? "일시정지" : "자동 넘기기";
+        position.setAttribute("aria-live", playing ? "off" : "polite");
+      }
+
+      toggle.addEventListener("click", () => setPlaying(timer === undefined));
+      for (const button of controls.querySelectorAll("[data-slide]")) {
+        button.addEventListener("click", () => {
+          setPlaying(false);
+          showSlide(Number(button.dataset.slide));
+        });
+      }
+
+      setPlaying(!matchMedia("(prefers-reduced-motion: reduce)").matches);
+    }
+    const randomPlay = document.querySelector(".random-play");
+    const favoritesList = document.querySelector(".favorites-list");
+    const favoritesEmpty = document.querySelector(".favorites-empty");
+    const favoritesStatus = document.querySelector(".favorites-status");
+    const storageKey = "heyjung00.favoriteGames";
+    let favorites = new Set();
+
+    try {
+      const saved = JSON.parse(localStorage.getItem(storageKey));
+      if (Array.isArray(saved)) favorites = new Set(saved);
+    } catch {
+      // Storage can be unavailable in local previews or private browsing.
+    }
+
+    const gameLinks = games.map(game => game.querySelector(".project-link"));
+    function gameDestination(link) {
+      return location.protocol === "file:"
+        ? new URL(link.getAttribute("href"), "https://heyjung00.github.io/").href
+        : link.href;
+    }
+
+    if (location.protocol === "file:") {
+      play.href = gameDestination(play);
+      for (const link of gameLinks) {
+        link.addEventListener("click", event => {
+          event.preventDefault();
+          window.location.assign(gameDestination(link));
+        });
+      }
+    }
+
+    const favoriteEntries = [
+      ...gameLinks.map((link, index) => ({ link, title: games[index].querySelector("h3") })),
+      ...Array.from(document.querySelectorAll(".tracks > li"), track => ({
+        link: track.querySelector("a"),
+        title: track.querySelector("h4"),
+      })),
+    ];
+
+    const favoriteButtons = favoriteEntries.map(({ link, title }) => {
+      const button = document.createElement("button");
+      const path = link.getAttribute("href");
+      button.type = "button";
+      button.className = "favorite-toggle";
+      button.setAttribute("aria-label", title.textContent + " 즐겨찾기");
+      button.addEventListener("click", () => {
+        if (favorites.has(path)) favorites.delete(path);
+        else favorites.add(path);
+
+        try {
+          localStorage.setItem(storageKey, JSON.stringify([...favorites]));
+          favoritesStatus.textContent = "";
+        } catch {
+          favoritesStatus.textContent = "이 브라우저에서는 즐겨찾기가 현재 페이지에서만 유지돼요.";
+        }
+
+        renderFavorites();
+      });
+      link.after(button);
+      return button;
+    });
+
+    function renderFavorites() {
+      favoritesList.replaceChildren();
+      favoriteEntries.forEach(({ link, title }, index) => {
+        const saved = favorites.has(link.getAttribute("href"));
+        favoriteButtons[index].setAttribute("aria-pressed", String(saved));
+        favoriteButtons[index].textContent = saved ? "★ 즐겨찾기" : "☆ 즐겨찾기";
+        if (saved) {
+          const item = document.createElement("li");
+          const favoriteLink = document.createElement("a");
+          favoriteLink.href = title.id ? "#" + title.id : gameDestination(link);
+          favoriteLink.textContent = title.textContent;
+          if (title.lang) favoriteLink.lang = title.lang;
+          item.append(favoriteLink);
+          favoritesList.append(item);
+        }
+      });
+      favoritesEmpty.hidden = favoritesList.childElementCount > 0;
+      favoritesList.hidden = !favoritesEmpty.hidden;
+    }
+
+    if (gameLinks.length > 0) {
+      randomPlay.hidden = false;
+      randomPlay.addEventListener("click", () => {
+        const index = Math.floor(Math.random() * gameLinks.length);
+        window.location.assign(gameDestination(gameLinks[index]));
+      });
+    }
+
+    if (favoriteEntries.length > 0) {
+      document.querySelectorAll("[data-favorites-control]").forEach(element => {
+        element.hidden = false;
+      });
+      renderFavorites();
+    }
+  </script>
 </body>
 </html>
